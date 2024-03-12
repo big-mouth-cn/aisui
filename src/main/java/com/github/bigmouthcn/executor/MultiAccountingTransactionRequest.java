@@ -32,10 +32,10 @@ public class MultiAccountingTransactionRequest {
         private String account;
         @JsonPropertyDescription("交易金额")
         private BigDecimal amount;
+        @JsonPropertyDescription("交易备注信息")
+        private Object description;
         @JsonPropertyDescription("交易时间，时间格式要求：yyyy-MM-dd HH:mm:ss")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
         private LocalDateTime createTime = LocalDateTime.now();
-        @JsonPropertyDescription("交易备注信息。")
-        private String description;
     }
 }

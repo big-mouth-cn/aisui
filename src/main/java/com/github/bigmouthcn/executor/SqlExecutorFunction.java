@@ -14,16 +14,16 @@ import java.util.function.Function;
  */
 public class SqlExecutorFunction implements Function<SqlExecutorRequest, Object> {
 
+    private final static String URL = "";
+    private final static String USER = "";
+    private final static String PASSWORD = "";
+
     @Override
     public Object apply(SqlExecutorRequest sqlExecutorRequest) {
-        String url = "";
-        String user = "";
-        String password = "";
-
         SqlExecutorResponse sqlExecutorResponse = new SqlExecutorResponse();
         if (SqlExecutorRequest.ExecuteType.SELECT == sqlExecutorRequest.getExecuteType()) {
             List<Map<String, Object>> result = new ArrayList<>();
-            try (Connection connection = DriverManager.getConnection(url, user, password);
+            try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                  Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(sqlExecutorRequest.getSql())) {
 
@@ -45,7 +45,7 @@ public class SqlExecutorFunction implements Function<SqlExecutorRequest, Object>
             }
         } else {
             try {
-                try (Connection connection = DriverManager.getConnection(url, user, password);
+                try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
                      Statement statement = connection.createStatement()) {
                     int rows = statement.executeUpdate(sqlExecutorRequest.getSql());
                     sqlExecutorResponse.setUpdateRows(rows);

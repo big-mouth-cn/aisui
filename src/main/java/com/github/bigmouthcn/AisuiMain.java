@@ -25,6 +25,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AisuiMain {
 
+    public static final String BASE_URL = "https://api.aigateway.work";
+    public static final String ACCESS_KEY = "";
+
     public static void main(String[] args) {
         OpenAiService service = createOpenAiService();
 
@@ -108,7 +111,7 @@ public class AisuiMain {
                         "" +
                         "# 记账流程" +
                         "- 首先，如果我的指令里包含了时间，你需要调用`query_current_time`来获取对应的时间；" +
-                        "- 然后，你需要根据我的记账需求调用`build_accounting_transaction_object`生成交易对象。请一步一步生成，检查数据的准确性，是标准的JSON格式；" +
+                        "- 然后，你需要根据我的记账需求调用`build_accounting_transaction_object`生成交易对象；" +
                         "- 最后将交易对象对应`bill`数据库表，生成可执行的SQL，调用`sql_executor`完成数据库的操作。" +
                         "" +
                         "## 非预期情况" +
@@ -160,11 +163,10 @@ public class AisuiMain {
     }
 
     private static OpenAiService createOpenAiService() {
-        String token = "your_aigateway_api_token";
         Duration timeout = Duration.ofSeconds(60);
 
         ObjectMapper mapper = OpenAiService.defaultObjectMapper();
-        OkHttpClient client = OpenAiService.defaultClient(token, timeout);
+        OkHttpClient client = OpenAiService.defaultClient(ACCESS_KEY, timeout);
         Retrofit retrofit = defaultRetrofit(client, mapper);
 
         OpenAiApi api = retrofit.create(OpenAiApi.class);
@@ -175,7 +177,7 @@ public class AisuiMain {
 
     public static Retrofit defaultRetrofit(OkHttpClient client, ObjectMapper mapper) {
         return new Retrofit.Builder()
-                .baseUrl("https://api.aigateway.work")
+                .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(JacksonConverterFactory.create(mapper))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -1,5 +1,6 @@
 package com.github.bigmouthcn.executor;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -10,7 +11,7 @@ import java.util.function.Function;
 public class QueryCurrentTimeFunction implements Function<QueryCurrentTimeRequest, Object> {
     @Override
     public Object apply(QueryCurrentTimeRequest queryCurrentTimeRequest) {
-        int plusDays = queryCurrentTimeRequest.getPlusDays();
+        int plusDays = Optional.ofNullable(queryCurrentTimeRequest).orElse(new QueryCurrentTimeRequest()).getPlusDays();
         return new QueryCurrentTimeResponse().setPlusDays(plusDays).setTime3(plusDays);
     }
 }

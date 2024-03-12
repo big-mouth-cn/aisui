@@ -10,6 +10,7 @@ import java.util.function.Function;
 public class MultiAccountingTransactionFunction implements Function<MultiAccountingTransactionRequest, Object> {
     @Override
     public Object apply(MultiAccountingTransactionRequest accountingTransaction) {
-        return new MultiAccountingTransactionResponse().setSize(accountingTransaction.getAccountingTransactions().size());
+        return new MultiAccountingTransactionResponse()
+                .setSize(accountingTransaction.getAccountingTransactions().size());
     }
 }

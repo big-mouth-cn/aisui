@@ -95,8 +95,8 @@ public class MyFunctionExecutor {
         try {
             JsonNode arguments = call.getArguments();
             obj = MAPPER.readValue(arguments instanceof TextNode ? arguments.asText() : arguments.toPrettyString(), function.getParametersClass());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        } catch (JsonProcessingException ignored) {
+
         }
         return (T) function.getExecutor().apply(obj);
     }
