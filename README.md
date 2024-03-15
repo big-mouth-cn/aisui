@@ -29,3 +29,6 @@ CREATE TABLE `bill` (
 
 - 运行 com.github.bigmouthcn.AisuiMain.main
 - 自然语言的方式在命令行输入任何需求即可。
+
+### 视频演示
+[https://www.bilibili.com/video/BV17Z421h7mY/](https://www.bilibili.com/video/BV17Z421h7mY/)
